@@ -7,7 +7,7 @@ from pynput import mouse, keyboard
 PORT = "/dev/ttyACM1"
 
 keys = list(" abcdefghijklmnopqrstuvwxyz") + [keyboard.Key.enter, keyboard.Key.backspace]
-keys_display = " abcdefghijklmnopqrstuvwxyz\\<"
+keys_display = "_abcdefghijklmnopqrstuvwxyz⏎<"
 
 kb = keyboard.Controller()
 arduino = serial.Serial(port=PORT, baudrate=9600, timeout=.1)
@@ -34,15 +34,15 @@ def print_state():
 print_state()
 
 while True:
-	event = arduino.readline().decode("utf-8").replace("\r\n", "")
-	if event == "cw":
+	event = arduino.read().decode("utf-8")
+	if event == "r":
 		pos = (pos + 1) % len(keys)
-	elif event == "ccw":
+	elif event == "l":
 		pos = (pos - 1 + len(keys)) % len(keys)
-	elif event == "down":
+	elif event == "d":
 		kb.press(keys[pos])
 		active_btn = pos
-	elif event == "up":
+	elif event == "u":
 		kb.release(keys[active_btn])
 		active_btn = -1
 	

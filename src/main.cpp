@@ -25,24 +25,25 @@ void loop() {
 	int a = digitalRead(PIN_A);
 	if (a != prev_a){ // Means the knob is rotating
 		if (digitalRead(PIN_B) != a) {	// Means pin A changed first - rotating clockwise
-			Serial.println("cw");
+			Serial.print("r");
 		} else {// Otherwise B changed first - counter clockwise
-			Serial.println("ccw");
+			Serial.print("l");
 		}
 	}
 
 	int btn = digitalRead(PIN_BTN);
 	if (btn != prev_btn) {
 		if (btn) {
-			Serial.println("up");
+			Serial.print("u");
 		}
 		else {
-			Serial.println("down");
+			Serial.print("d");
 		}
 	}
 
 	prev_btn = btn;
 	prev_a = a;
+	delay(5);
 }
 
 // void debug_signal() {
