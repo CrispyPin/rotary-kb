@@ -1,10 +1,11 @@
 #include <Arduino.h>
 
 #define PIN_BTN 5
+// CLK / pin A of rotary encoder
+#define PIN_A 11
+// DT / pin B of rotary encoder
+#define PIN_B 8
 
-#define PIN_A 11 // Connected to CLK
-#define PIN_B 8	// Connected to DT
-int rotation = 0;
 int prev_a;
 int prev_btn;
 //#define DEBUG
@@ -22,28 +23,22 @@ void setup() {
 void loop() {
 	// debug_signal();
 	int a = digitalRead(PIN_A);
-	int btn = digitalRead(PIN_BTN);
-
 	if (a != prev_a){ // Means the knob is rotating
-		if (digitalRead(PIN_B) != a) {	// Means pin A Changed first - We're Rotating Clockwise
-			rotation++;
-			#ifdef DEBUG
-			Serial.print("CW  ");
-			#endif
-		} else {// Otherwise B changed first and we're moving CCW
-			rotation--;
-			#ifdef DEBUG
-			Serial.print("CCW ");
-			#endif
+		if (digitalRead(PIN_B) != a) {	// Means pin A changed first - rotating clockwise
+			Serial.println("cw");
+		} else {// Otherwise B changed first - counter clockwise
+			Serial.println("ccw");
 		}
-		#ifdef DEBUG
-		Serial.print("pos: ");
-		#endif
-		Serial.println(rotation);
 	}
+
+	int btn = digitalRead(PIN_BTN);
 	if (btn != prev_btn) {
-		Serial.print("btn.");
-		Serial.println(btn);
+		if (btn) {
+			Serial.println("up");
+		}
+		else {
+			Serial.println("down");
+		}
 	}
 
 	prev_btn = btn;

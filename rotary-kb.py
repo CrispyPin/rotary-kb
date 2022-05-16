@@ -19,20 +19,22 @@ def print_state():
 	global pos
 	print(keys_display)
 	print(" " * pos + "^")
+	print(pos)
 
 while True:
 	event = arduino.readline().decode("utf-8").replace("\r\n", "")
+	if event == "cw":
+		pos = (pos + 1) % len(keys)
+	elif event == "ccw":
+		pos = (pos - 1 + len(keys)) % len(keys)
+	elif event == "down":
+		kb.press(keys[pos])
+		active_btn = pos
+	elif event == "up":
+		kb.release(keys[active_btn])
+		active_btn = -1
+	
 	if event:
-		if event.startswith("btn."):
-			state = event[4]
-			if state == "0":
-				kb.press(keys[pos])
-				active_btn = pos
-			else:
-				kb.release(keys[active_btn])
-				active_btn = -1
-			# print(event)
-		else:
-			pos = int(event)
-			print_state()
+		print_state()
+		print(event)
 
