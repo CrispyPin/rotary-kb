@@ -7,7 +7,7 @@ fn main() {
 	println!("Connecting to arduino on port {}...", port);
 	let connection = serial::open(port);
 	if connection.is_err() {
-		println!("Connection failed {}", connection.err().unwrap());
+		println!("Connection failed: {}", connection.err().unwrap());
 		return;
 	}
 
