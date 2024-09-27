@@ -11,3 +11,6 @@ The finished circuit:
 
 I sacrificed one Lego piece to make it fit on, now I can attach a Lego wheel to it.  
 Since pressing the button takes a bit too much force, there is also a Lego 3x1 brick under the encoder which supports it so that the pins don't take all the load.
+
+<video src="images/linear.mp4" alt="" controls/>
+<video src="images/tree_monkeytype.mp4" alt="painfully slow typing in monkeytype using the binary tree layout" controls/>
